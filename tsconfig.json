@@ -3,7 +3,7 @@
         "allowJs": false,
         "allowSyntheticDefaultImports": true,
         "baseUrl": ".",
-        "esModuleInterop": true, //Turning on esModuleInterop will fix both of these problems in the code transpiled by TypeScript
+        "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
         "isolatedModules": false,
         "jsx": "react-jsx",
@@ -12,9 +12,6 @@
         "moduleResolution": "Node",
         "noEmit": true,
         "outDir": "build",
-        "paths": {
-            "~/*": ["src/*"]
-        },
         "resolveJsonModule": true,
         "skipLibCheck": true,
         "strict": true,
