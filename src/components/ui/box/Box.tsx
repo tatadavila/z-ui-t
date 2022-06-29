@@ -1,22 +1,22 @@
 // @components
-import { ThumbsDown, ThumbsUp } from '../icons'
+import { ViewType, ThumbsDown, ThumbsUp } from '~/components'
 
 // @interfaces
-import { BoxI } from './box.interface'
+import { ViewTypeI } from '~/interfaces'
 
 // @utils
-import { boxImage } from 'src/utils'
+import { boxImage } from '~/utils'
 
-export const Box: React.FC<BoxI> = ({ data }) => {
+const Box = ({ data }: ViewTypeI) => {
     return (
         <div className="box__container">
             <picture>
-                <source srcSet={boxImage(data.image)} type="image/webp" />
+                <source srcSet={boxImage(data.picture)} type="image/webp" />
                 <img
                     alt={data.name}
                     className="box__background-image"
                     loading="lazy"
-                    src={boxImage(data.image)}
+                    src={boxImage(data.picture)}
                 />
             </picture>
             <div className="box__body">
@@ -38,3 +38,5 @@ export const Box: React.FC<BoxI> = ({ data }) => {
         </div>
     )
 }
+
+export default ViewType(Box)
