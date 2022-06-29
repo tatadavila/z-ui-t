@@ -1,9 +1,20 @@
 // @assets
-import data from 'src/assets/data.json'
+import { data as mockedData } from '~/assets/data.json'
 
-export const viewType = (PassedComponent: React.ComponentType): React.FC => {
-    const WrappedComponent = ({ ...props }) => {
-        return <PassedComponent {...props} />
+// @interfaces
+import { ViewTypeI } from '~/interfaces'
+
+export const ViewType: any = (
+    PassedComponent: React.ComponentType<ViewTypeI>,
+) => {
+    const WrappedComponent = () => {
+        return (
+            <>
+                {mockedData.map(element => (
+                    <PassedComponent data={element} key={element.name} />
+                ))}
+            </>
+        )
     }
     return WrappedComponent
 }
