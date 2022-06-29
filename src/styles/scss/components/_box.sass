@@ -1,10 +1,29 @@
 .box__container
-    background-color: linear-gradient(180deg, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.6) 100%)
-    color: var(--color-white)
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.6) 100%)
+    flex: 0 0 auto
+    height: 300px
+    overflow-y: hidden
+    position: relative
+    width: 300px
     .box__background-image
         height: 100%
-        object-fit: contain
+        mix-blend-mode: multiply
+        object-fit: cover
+        position: absolute
         width: 100%
+        z-index: 0
     .box__body
+        color: var(--color-white)
         display: flex
-        flex-direction: flex-column
+        flex-direction: column
+        height: fit-content
+        width: 100%
+        .box__body-header
+            align-items: flex-end
+            display: flex
+            z-index: 1
+            .box__celebrity-name
+                font-style: normal
+                font-weight: 400
+                font-size: 30px
+                line-height: 36px
