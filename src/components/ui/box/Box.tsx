@@ -8,6 +8,8 @@ import { ViewTypeI } from '~/interfaces'
 import { boxImage } from '~/utils'
 
 const Box = ({ data }: ViewTypeI) => {
+    console.log(data.name)
+
     return (
         <div className="box__container">
             <picture>
@@ -21,7 +23,7 @@ const Box = ({ data }: ViewTypeI) => {
             </picture>
             <div className="box__body">
                 <div className="box__body-header">
-                    <ThumbsDown />
+                    <ThumbsDown yellowBackground />
                     <section className="box__celebrity-name">
                         {data.name}
                     </section>
