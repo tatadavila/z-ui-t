@@ -9,11 +9,11 @@ export const ViewType: any = (
 ) => {
     const WrappedComponent = () => {
         return (
-            <>
+            <div className='vt__scrolling-container'>
                 {mockedData.map(element => (
                     <PassedComponent data={element} key={element.name} />
                 ))}
-            </>
+            </div>
         )
     }
     return WrappedComponent
