@@ -1,5 +1,7 @@
 :root {
+    --color-aquamarine: rgba(60, 187, 180, 0.8);
     --color-green-positive: 60, 187, 180;
+    --color-yellow: rgba(251, 189, 74, 1);
     --color-yellow-negative: 249, 173, 29;
     --color-dark-background: rgba(0, 0, 0, 0.4);
     --color-darker-background: rgba(0, 0, 0, 0.6);
