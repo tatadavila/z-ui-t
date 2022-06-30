@@ -21,7 +21,7 @@
     flex-direction: column
     font-style: normal
     font-weight: 400
-    height: 100%
+    height: 90%
     justify-content: end
     width: 100%
     .box__body-header, .box__body-description, .box__last-updated, .box__voting
@@ -48,7 +48,11 @@
         padding-bottom: 12px
         :nth-child(2)
             margin: 0 12px
-
-@for $i from 0 through 100
-.width-percentage-#{$i}
-    width: #{$i}#{"%"} !important
+.box-percentage__container
+    display: flex
+    height: 10%
+    .box-percentage__bar
+@for $i from 1 through 100
+    .width-percentage-#{$i}
+        height: 10%
+        width: #{$i}#{"%"} !important
