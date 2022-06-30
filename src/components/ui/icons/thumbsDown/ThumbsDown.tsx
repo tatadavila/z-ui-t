@@ -1,5 +1,5 @@
 // @interfaces
-import { ThumbsI } from "~/interfaces"
+import { ThumbsI } from '~/interfaces'
 
 export const ThumbsDown = (blueBackground: ThumbsI): JSX.Element => {
     return (
@@ -21,9 +21,9 @@ export const ThumbsDown = (blueBackground: ThumbsI): JSX.Element => {
                 <g
                     id="Mobile"
                     stroke="none"
-                    stroke-width="1"
+                    strokeWidth="1"
                     fill="none"
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                 >
                     <g
                         id="Mobile---Home"
