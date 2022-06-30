@@ -1,13 +1,11 @@
-import { ThumbsDownI } from './thumbsDown.interface'
+// @interfaces
+import { ThumbsI } from "~/interfaces"
 
-export const ThumbsDown = (
-    blueBackground: ThumbsDownI,
-    yellowBackground: ThumbsDownI,
-): JSX.Element => {
+export const ThumbsDown = (blueBackground: ThumbsI): JSX.Element => {
     return (
         <div
             className={`thumbs-down__container${
-                blueBackground ? ' blue' : yellowBackground ? ' yellow' : ''
+                blueBackground ? ' aquamarine-bg' : ''
             }`}
         >
             <svg
