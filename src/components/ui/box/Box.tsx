@@ -1,14 +1,22 @@
 // @components
-import { ViewType, ThumbsDown, ThumbsUp } from '~/components'
+import { Button, ThumbsDown, ThumbsUp, ViewType } from '~/components'
 
 // @interfaces
 import { ViewTypeI } from '~/interfaces'
 
 // @utils
-import { boxImage } from '~/utils'
+import { boxImage, votingPercentage } from '~/utils'
+import { convertDate } from '~/utils/convertDate'
+
+// @vendors
+import { useState } from 'react'
 
 const Box = ({ data }: ViewTypeI) => {
-    console.log(data.name)
+    const { negative, positive } = votingPercentage(
+        data.votes.negative,
+        data.votes.positive,
+    )
+    console.log(negative, positive)
 
     return (
         <div className="box__container">
@@ -31,11 +39,20 @@ const Box = ({ data }: ViewTypeI) => {
                 <section className="box__body-description">
                     {data.description}
                 </section>
-                <section className="box__last-updated"></section>
+                <section className="box__last-updated">
+                    {convertDate(data.lastUpdated)} ago in {data.category}
+                </section>
                 <section className="box__voting">
                     <ThumbsUp />
                     <ThumbsDown />
+                    <Button>Vote Now</Button>
                 </section>
+            </div>
+            <div className="voting-percentage__container">
+                <div className={`vp__left width-percentage-#${positive}`}></div>
+                <div
+                    className={`vp__right width-percentage-#${negative}`}
+                ></div>
             </div>
         </div>
     )
