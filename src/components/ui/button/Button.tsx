@@ -1,5 +1,7 @@
-export const Button = (): JSX.Element => {
-  return (
-    <div>Vote Now</div>
-  )
+interface ButtonI {
+    children: React.ReactNode
+}
+
+export const Button: React.FC<ButtonI> = ({ children }) => {
+    return <button className="btn__container">{children}</button>
 }

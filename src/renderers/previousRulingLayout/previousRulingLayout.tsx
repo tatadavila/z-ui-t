@@ -1,10 +1,14 @@
-export const PreviousRulingLayout: React.FunctionComponent = () => {
+import Box from '~/components'
+
+export const PreviousRulingLayout: React.FC = () => {
     return (
         <section className="prl__container">
             <div className="prl__header">
                 <p className="prl__header-title">Previous Rulings</p>
             </div>
-            <div className="prl__box-overflow"></div>
+            <section className="prl__boxes">
+                <Box />
+            </section>
         </section>
     )
 }

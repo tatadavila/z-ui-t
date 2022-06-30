@@ -1,10 +1,10 @@
 // @assets
-import CristinaImage from 'src/assets/img/celebrities/cristina.webp'
-import ElonImage from 'src/assets/img/celebrities/elon.webp'
-import GretaImage from 'src/assets/img/celebrities/greta.webp'
-import KanyeImage from 'src/assets/img/celebrities/kanye.webp'
-import MalalaImage from 'src/assets/img/celebrities/malala.webp'
-import MarkImage from 'src/assets/img/celebrities/mark.webp'
+import CristinaImage from '~/assets/img/celebrities/cristina.webp'
+import ElonImage from '~/assets/img/celebrities/elon.webp'
+import GretaImage from '~/assets/img/celebrities/greta.webp'
+import KanyeImage from '~/assets/img/celebrities/kanye.webp'
+import MalalaImage from '~/assets/img/celebrities/malala.webp'
+import MarkImage from '~/assets/img/celebrities/mark.webp'
 
 export const images = {
     'cristina.png': CristinaImage,
