@@ -48,12 +48,14 @@ const Box = ({ data }: ViewTypeI) => {
                     <Button>Vote Now</Button>
                 </section>
             </div>
-            <div className="voting-percentage__container">
-                <div className={`vp__left width-percentage-#${positive}`}></div>
+            <footer className="box-percentage__container ">
+                <div className={`box-percentage__bar light-aquamarine-bg width-percentage-#${positive}`}>{`${positive}%`}</div>
                 <div
-                    className={`vp__right width-percentage-#${negative}`}
-                ></div>
-            </div>
+                    className={`box-percentage__bar light-yellow-bg width-percentage-#${negative}`}
+                >
+                    {`${negative}%`}
+                </div>
+            </footer>
         </div>
     )
 }
