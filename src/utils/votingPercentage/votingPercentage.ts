@@ -5,9 +5,7 @@ export const votingPercentage = (
     positive: number,
 ): VotingPercentageI => {
     return {
-        negative:
-            Math.round((negative / (negative + positive)) * 100 * 10) / 10,
-        positive:
-            Math.round((p0ositive / (negative + positive)) * 100 * 10) / 10,
+        negative: Math.round((negative / (negative + positive)) * 100),
+        positive: Math.round((positive / (negative + positive)) * 100),
     }
 }
