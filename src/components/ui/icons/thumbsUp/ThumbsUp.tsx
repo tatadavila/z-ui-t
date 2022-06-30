@@ -1,6 +1,12 @@
-export const ThumbsUp = (): JSX.Element => {
+// @interfaces
+import { ThumbsI } from '~/interfaces'
+
+export const ThumbsUp = (yellowBackground: ThumbsI): JSX.Element => {
     return (
         <svg
+            className={`thumbs-down__container${
+                yellowBackground ? ' yellow-bg' : ''
+            }`}
             width="16px"
             height="16px"
             viewBox="0 0 16 16"
