@@ -16,7 +16,6 @@ const Box = ({ data }: ViewTypeI) => {
         data.votes.negative,
         data.votes.positive,
     )
-    console.log(negative, positive)
 
     return (
         <div className="box__container">
@@ -31,7 +30,11 @@ const Box = ({ data }: ViewTypeI) => {
             </picture>
             <div className="box__body">
                 <div className="box__body-header">
-                    <ThumbsDown yellowBackground />
+                    {negative > positive ? (
+                        <ThumbsDown background />
+                    ) : (
+                        <ThumbsUp background />
+                    )}
                     <section className="box__celebrity-name">
                         {data.name}
                     </section>
@@ -43,16 +46,22 @@ const Box = ({ data }: ViewTypeI) => {
                     {convertDate(data.lastUpdated)} ago in {data.category}
                 </section>
                 <section className="box__voting">
-                    <ThumbsUp />
-                    <ThumbsDown />
+                    <ThumbsUp background />
+                    <ThumbsDown background />
                     <Button>Vote Now</Button>
                 </section>
             </div>
-            <footer className="box-percentage__container ">
-                <div className={`box-percentage__bar light-aquamarine-bg width-percentage-#${positive}`}>{`${positive}%`}</div>
+            <footer className="box-percentage__container">
                 <div
-                    className={`box-percentage__bar light-yellow-bg width-percentage-#${negative}`}
+                    className={`box-percentage__bar light-aquamarine-bg bar-width-${positive}`}
                 >
+                    <ThumbsUp />
+                    {`${positive}%`}
+                </div>
+                <div
+                    className={`box-percentage__bar light-yellow-bg bar-width-${negative}`}
+                >
+                    <ThumbsDown />
                     {`${negative}%`}
                 </div>
             </footer>
