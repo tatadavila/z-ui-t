@@ -1,11 +1,13 @@
 // @interfaces
 import { ThumbsI } from '~/interfaces'
 
-export const ThumbsDown = (blueBackground: ThumbsI): JSX.Element => {
+export const ThumbsDown: React.FC<ThumbsI> = ({
+    background = false,
+}): JSX.Element => {
     return (
         <div
-            className={`thumbs-down__container${
-                blueBackground ? ' aquamarine-bg' : ''
+            className={`thumbs-down__container ${
+                background ? 'yellow-bg' : 'transparent-bg'
             }`}
         >
             <svg
