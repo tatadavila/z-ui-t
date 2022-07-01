@@ -7,6 +7,8 @@
     position: relative
     width: 300px
     z-index: 0
+    &:nth-of-type(even)
+        margin: 0 12px
 .box__background-image
     height: 100%
     mix-blend-mode: multiply
@@ -40,7 +42,7 @@
         padding: 7px 35px 12px 37px
         self-align: center
     .box__last-updated, .box__voting
-        margin-right: 48px
+        margin-right: 36px
     .box__voting
         display: flex
         align-items: center
@@ -52,7 +54,9 @@
     display: flex
     height: 10%
     .box-percentage__bar
+        align-items: center
+        display: inline-flex
+        z-index: 2
 @for $i from 1 through 100
-    .width-percentage-#{$i}
-        height: 10%
-        width: #{$i}#{"%"} !important
+    .bar-width-#{$i}
+        width: 1% * $i !important
