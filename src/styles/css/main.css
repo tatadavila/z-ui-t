@@ -1,4 +1,4 @@
-:root {
+:root { 
     --color-light-aquamarine: rgba(60, 187, 180, 0.6);
     --color-aquamarine: rgba(60, 187, 180, 0.8);
     --color-green-positive: 60, 187, 180;
@@ -12,8 +12,10 @@
     --color-light-gray: rgba(235, 235, 235, 1);
     --color-light-background: rgba(255, 255, 255, 0.4);
     --color-lighter-background: rgba(255, 255, 255, 0.8);
+    --color-middle-gray-background: rgba(48, 48, 48, 0.6)
     --color-transparent-background: rgba(0, 0, 0, 0);
     --color-white: rgba(255, 255, 255, 1);
+
 }
 
 html,
@@ -214,7 +216,7 @@ hr[role='separator'] {
                 var(--color-dark-background),
                 var(--color-dark-background)
             ),
-        -25vw 0/160vw no-repeat url('../assets/img/pope-francis.png');
+        -25vw 0/160vw no-repeat url('~/assets/img/pope-francis.png');
     filter: blur(1rem);
 }
 
@@ -500,7 +502,7 @@ main h2 {
                     var(--color-dark-background),
                     var(--color-dark-background)
                 ),
-            7vw -6.5rem/115vw auto no-repeat url(../assets/img/pope-francis.png);
+            7vw -6.5rem/115vw auto no-repeat url(~/assets/img/pope-francis.png);
     }
 
     .featured-card__content {
