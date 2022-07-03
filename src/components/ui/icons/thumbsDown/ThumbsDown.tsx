@@ -3,12 +3,15 @@ import { ThumbsI } from '~/interfaces'
 
 export const ThumbsDown: React.FC<ThumbsI> = ({
     background = false,
+    onClickHandler,
+    selected,
 }): JSX.Element => {
     return (
         <div
-            className={`thumbs-down__container ${
+            className={`thumbs__container ${
                 background ? 'yellow-bg' : 'transparent-bg'
-            }`}
+            } ${selected ? 'thumbs__active' : ''}`}
+            onClick={() => onClickHandler('thumbsDown')}
         >
             <svg
                 width="16px"
