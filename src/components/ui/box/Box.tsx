@@ -3,20 +3,45 @@ import { Button, ThumbsDown, ThumbsUp, ViewType } from '~/components'
 
 // @interfaces
 import { ViewTypeI } from '~/interfaces'
+import { ThubsStatesI, VoteNowStateI } from './boxStates.interface'
 
 // @utils
 import { boxImage, votingPercentage } from '~/utils'
 import { convertDate } from '~/utils/convertDate'
 
 // @vendors
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const Box = ({ data }: ViewTypeI) => {
+    const [thumbsState, setThumbsState] = useState<ThubsStatesI>({
+        thumbsDown: false,
+        thumbsUp: false,
+    })
+    const [voteNowState, setVoteNowState] = useState<number>(0)
     const { negative, positive } = votingPercentage(
         data.votes.negative,
         data.votes.positive,
     )
-
+    const onClickButton = (property: keyof typeof thumbsState) => {
+        console.log('IT ENTERED')
+        for (const item in thumbsState) {
+            thumbsState[item as keyof typeof thumbsState] = false
+        }
+        if (property !== ('voteNow' as keyof typeof thumbsState)) {
+            setThumbsState({
+                ...thumbsState,
+                [property]: !thumbsState[property],
+            })
+            setVoteNowState(1)
+        } else if (voteNowState === 1) {
+            setVoteNowState(2)
+        } else {
+            setVoteNowState(0)
+        }
+    }
+    useEffect(() => {
+        console.log(thumbsState)
+    }, [thumbsState])
     return (
         <div className="box__container">
             <picture>
@@ -43,12 +68,33 @@ const Box = ({ data }: ViewTypeI) => {
                     {data.description}
                 </section>
                 <section className="box__last-updated">
-                    {convertDate(data.lastUpdated)} ago in {data.category}
+                    {voteNowState !== 2
+                        ? `${convertDate(data.lastUpdated)} ago in ${
+                              data.category
+                          }`
+                        : 'Thank you for voting!'}
                 </section>
                 <section className="box__voting">
-                    <ThumbsUp background />
-                    <ThumbsDown background />
-                    <Button>Vote Now</Button>
+                    {voteNowState !== 2 && (
+                        <>
+                            <ThumbsUp
+                                background
+                                onClickHandler={onClickButton}
+                                selected={thumbsState.thumbsUp}
+                            />
+                            <ThumbsDown
+                                background
+                                onClickHandler={onClickButton}
+                                selected={thumbsState.thumbsDown}
+                            />
+                        </>
+                    )}
+                    <Button
+                        disabled={voteNowState === 0}
+                        onClickHandler={onClickButton}
+                    >
+                        {voteNowState !== 2 ? ' Vote Now' : 'Vote Again'}
+                    </Button>
                 </section>
             </div>
             <footer className="box-percentage__container">
@@ -69,4 +115,4 @@ const Box = ({ data }: ViewTypeI) => {
     )
 }
 
-export default ViewType(Box)
+export default Box
