@@ -9,7 +9,7 @@ export const Button: React.FC<ButtonI> = ({
     return (
         <button
             className={`btn__container ${disabled ? 'btn__disabled' : ''}`}
-            onClick={() => onClickHandler('voteNow')}
+            onClick={onClickHandler()}
         >
             {children}
         </button>
