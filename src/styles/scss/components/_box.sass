@@ -2,7 +2,7 @@
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.6) 100%)
     flex: 0 0 auto
     height: 300px
-    overflow-y: hidden
+    overflow: hidden
     position: relative
     width: 300px
     z-index: 0
@@ -56,6 +56,14 @@
         align-items: center
         display: inline-flex
         z-index: 2
+    .bp__left-bar, .bp__right-bar
+        align-items: center
+        display: flex
+    .bp__left-bar
+        justify-content: start
+    .bp__right-bar
+        justify-content: end
+
 @for $i from 1 through 100
     .bar-width-#{$i}
         width: 1% * $i !important

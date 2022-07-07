@@ -12,7 +12,7 @@ import { convertDate } from '~/utils/convertDate'
 // @vendors
 import { useEffect, useState } from 'react'
 
-const Box = ({ data }: ViewTypeI) => {
+export const Box = ({ data, key, setData }: ViewTypeI) => {
     const [thumbsState, setThumbsState] = useState<ThubsStatesI>({
         thumbsDown: false,
         thumbsUp: false,
@@ -22,26 +22,32 @@ const Box = ({ data }: ViewTypeI) => {
         data.votes.negative,
         data.votes.positive,
     )
-    const onClickButton = (property: keyof typeof thumbsState) => {
-        console.log('IT ENTERED')
+    const handleThumbsButton = (
+        property: keyof typeof thumbsState,
+        event?: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    ) => {
+        console.log('EVENT', event)
+
         for (const item in thumbsState) {
             thumbsState[item as keyof typeof thumbsState] = false
         }
-        if (property !== ('voteNow' as keyof typeof thumbsState)) {
-            setThumbsState({
-                ...thumbsState,
-                [property]: !thumbsState[property],
-            })
-            setVoteNowState(1)
-        } else if (voteNowState === 1) {
+
+        setThumbsState({
+            ...thumbsState,
+            [property]: !thumbsState[property],
+        })
+        setVoteNowState(1)
+    }
+    const handleVoteNow = (
+        property: keyof typeof voteNowState,
+        event?: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    ) => {
+        if (voteNowState === 1) {
             setVoteNowState(2)
         } else {
             setVoteNowState(0)
         }
     }
-    useEffect(() => {
-        console.log(thumbsState)
-    }, [thumbsState])
     return (
         <div className="box__container">
             <picture>
@@ -79,19 +85,19 @@ const Box = ({ data }: ViewTypeI) => {
                         <>
                             <ThumbsUp
                                 background
-                                onClickHandler={onClickButton}
+                                onClickHandler={handleThumbsButton}
                                 selected={thumbsState.thumbsUp}
                             />
                             <ThumbsDown
                                 background
-                                onClickHandler={onClickButton}
+                                onClickHandler={handleThumbsButton}
                                 selected={thumbsState.thumbsDown}
                             />
                         </>
                     )}
                     <Button
                         disabled={voteNowState === 0}
-                        onClickHandler={onClickButton}
+                        onClickHandler={handleVoteNow}
                     >
                         {voteNowState !== 2 ? ' Vote Now' : 'Vote Again'}
                     </Button>
@@ -99,20 +105,18 @@ const Box = ({ data }: ViewTypeI) => {
             </div>
             <footer className="box-percentage__container">
                 <div
-                    className={`box-percentage__bar light-aquamarine-bg bar-width-${positive}`}
+                    className={`box-percentage__bar bp__left-bar light-aquamarine-bg bar-width-${positive}`}
                 >
                     <ThumbsUp />
                     {`${positive}%`}
                 </div>
                 <div
-                    className={`box-percentage__bar light-yellow-bg bar-width-${negative}`}
+                    className={`box-percentage__bar bp__right-bar light-yellow-bg bar-width-${negative}`}
                 >
-                    <ThumbsDown />
                     {`${negative}%`}
+                    <ThumbsDown />
                 </div>
             </footer>
         </div>
     )
 }
-
-export default Box
