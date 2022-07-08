@@ -1,4 +1,5 @@
-import Box from '~/components'
+// @component
+import { ViewType } from '~/components'
 
 export const PreviousRulingLayout: React.FC = () => {
     return (
@@ -7,7 +8,7 @@ export const PreviousRulingLayout: React.FC = () => {
                 <p className="prl__header-title">Previous Rulings</p>
             </div>
             <section className="prl__boxes">
-                <Box />
+                <ViewType />
             </section>
         </section>
     )
