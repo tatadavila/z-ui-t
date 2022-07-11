@@ -1,0 +1,9 @@
+@import './_breakpoints.sass'
+
+@mixin tablet
+    @media (min-width: #{$breakpoint-tablet}) and (max-width: #{$breackpoint-desktop})
+        @content
+
+@mixin desktop
+    @media(min-width: #{$breackpoint-desktop})
+        @content
