@@ -1,0 +1,85 @@
+@import '../_mixins.sass'
+
+.box__container
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.6) 100%)
+    flex: 0 0 auto
+    height: 300px
+    overflow: hidden
+    position: relative
+    width: 300px
+    z-index: 0
+    &:nth-of-type(even)
+        margin: 0 12px
+.box__background-image
+    height: 100%
+    mix-blend-mode: multiply
+    object-fit: cover
+    position: absolute
+    width: 100%
+    z-index: 1
+.box__body
+    align-items: end
+    color: var(--color-white)
+    display: flex
+    flex-direction: column
+    font-style: normal
+    font-weight: 400
+    height: 90%
+    justify-content: end
+    width: 100%
+    .box__body-header, .box__body-description, .box__last-updated, .box__voting
+        z-index: 2
+    .box__body-header
+        align-items: start
+        display: flex
+        justify-content: start
+        width: 100%
+        .box__celebrity-name
+            font-size: 30px
+            line-height: 36px
+    .box__body-description
+        font-size: 0.938rem
+        line-height: 18px
+        padding: 7px 35px 12px 37px
+    .box__last-updated, .box__voting
+        margin-right: 36px
+    .box__voting
+        display: flex
+        align-items: center
+        margin-top: 12px
+        padding-bottom: 12px
+        :nth-child(2)
+            margin: 0 12px
+.box-percentage__container
+    display: flex
+    height: 10%
+    .box-percentage__bar
+        align-items: center
+        display: inline-flex
+        z-index: 2
+    .bp__left-bar, .bp__right-bar
+        align-items: center
+        display: flex
+    .bp__left-bar
+        justify-content: start
+    .bp__right-bar
+        justify-content: end
+@for $i from 1 through 100
+    .bar-width-#{$i}
+        width: 1% * $i !important
+
+@include tablet
+    .box__container
+        font-size: 15px
+        height: 351px
+        line-height: 18px
+        margin: 0
+        width: 351px
+
+@include desktop
+    .box__container
+        height: 348px
+        margin: 0
+        width: 348px
+        &:nth-of-type(even)
+            margin: 0

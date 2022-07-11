@@ -1,8 +1,11 @@
-import { useState } from "react";
-import "./App.css";
+// @renderers
+import { PreviousRulingLayout } from './renderers/previousRulingLayout'
+
+// @styles
+import './styles/scss/app.sass'
 
 const App = () => {
-  return <p>LALALA</p>
+    return <PreviousRulingLayout />
 }
 
-export default App;
+export default App
