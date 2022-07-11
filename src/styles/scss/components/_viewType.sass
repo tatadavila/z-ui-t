@@ -1,7 +1,25 @@
-.vt__scrolling-container
+.vt__container
     display: flex
     flex-wrap: nowrap
     overflow-x: auto
 
     &::-webkit-scrollbar
         display: none
+
+@include tablet
+    .vt__container
+        column-gap: 27px
+        display: flex
+        flex-direction: row
+        flex-wrap: wrap
+        justify-content: center
+        row-gap: 27px
+
+@include desktop
+    .vt__container
+        column-gap: 27px
+        display: flex
+        flex-direction: row
+        flex-wrap: wrap
+        justify-content: center
+        row-gap: 27px
