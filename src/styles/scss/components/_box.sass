@@ -1,3 +1,5 @@
+@import '../_mixins.sass'
+
 .box__container
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.6) 100%)
     flex: 0 0 auto
@@ -39,7 +41,6 @@
         font-size: 0.938rem
         line-height: 18px
         padding: 7px 35px 12px 37px
-        self-align: center
     .box__last-updated, .box__voting
         margin-right: 36px
     .box__voting
@@ -63,7 +64,22 @@
         justify-content: start
     .bp__right-bar
         justify-content: end
-
 @for $i from 1 through 100
     .bar-width-#{$i}
         width: 1% * $i !important
+
+@include tablet
+    .box__container
+        font-size: 15px
+        height: 351px
+        line-height: 18px
+        margin: 0
+        width: 351px
+
+@include desktop
+    .box__container
+        height: 348px
+        margin: 0
+        width: 348px
+        &:nth-of-type(even)
+            margin: 0
