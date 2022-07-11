@@ -1,4 +1,4 @@
-type voteT = {
+export type VotesT = {
     positive: number
     negative: number
 }
@@ -9,5 +9,5 @@ export interface DataI {
     category: string
     picture: string
     lastUpdated: string
-    votes: voteT
+    votes: VotesT
 }
