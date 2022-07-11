@@ -23,5 +23,5 @@ yarn dev
 vite build
 ```
 
-### Deloyed with Vercel
+### Deployed with Vercel
 [Zemoga UI Test](https://zemoga-ui-test-ashy.vercel.app/)
