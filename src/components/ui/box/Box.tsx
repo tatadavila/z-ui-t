@@ -1,82 +1,113 @@
 // @components
 import { Button, ThumbsDown, ThumbsUp, ViewType } from '~/components'
 
+// @localStore
+import { setItemLocalStorage } from '~/localStore'
+
 // @interfaces
-import { ViewTypeI } from '~/interfaces'
-import { ThubsStatesI, VoteNowStateI } from './boxStates.interface'
+import { ViewTypeI, VotingPercentageI } from '~/interfaces'
+import { ThubsStatesI } from './boxStates.interface'
 
 // @utils
-import { boxImage, votingPercentage } from '~/utils'
-import { convertDate } from '~/utils/convertDate'
+import { boxImage, convertDate, votingPercentage } from '~/utils'
+import { deactivateThumbs } from './utils'
 
 // @vendors
-import { useEffect, useState } from 'react'
+import { FC, useState } from 'react'
 
-export const Box = ({ data, key, setData }: ViewTypeI) => {
+export const Box: FC<ViewTypeI> = ({ data, boxKey, information, setData }) => {
+    console.log({ information })
+
+    const negativeVotes = information.votes.negative
+    const positiveVotes = information.votes.positive
+    const [vPercentage, setVPercentage] = useState<VotingPercentageI>(
+        votingPercentage(negativeVotes, positiveVotes),
+    )
     const [thumbsState, setThumbsState] = useState<ThubsStatesI>({
         thumbsDown: false,
         thumbsUp: false,
     })
     const [voteNowState, setVoteNowState] = useState<number>(0)
-    const { negative, positive } = votingPercentage(
-        data.votes.negative,
-        data.votes.positive,
-    )
-    const handleThumbsButton = (
-        property: keyof typeof thumbsState,
-        event?: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    ) => {
-        console.log('EVENT', event)
 
-        for (const item in thumbsState) {
-            thumbsState[item as keyof typeof thumbsState] = false
-        }
-
+    const handleThumbsButton = (property: keyof typeof thumbsState) => {
+        deactivateThumbs(thumbsState)
         setThumbsState({
             ...thumbsState,
             [property]: !thumbsState[property],
         })
         setVoteNowState(1)
     }
-    const handleVoteNow = (
-        property: keyof typeof voteNowState,
-        event?: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    ) => {
+    const handleVoteNow = (key: number) => {
         if (voteNowState === 1) {
+            if (thumbsState.thumbsDown) {
+                console.log('b4TD', data[key].votes)
+                data[key] = {
+                    ...data[key],
+                    votes: {
+                        negative: data[key].votes.negative + 1,
+                        positive: data[key].votes.positive,
+                    },
+                }
+                setData(data)
+                console.log('aftrTD', data[key].votes)
+                setItemLocalStorage('celebrities', data)
+            } else {
+                console.log('b4TU', data[key].votes)
+                data[key] = {
+                    ...data[key],
+                    votes: {
+                        negative: data[key].votes.negative,
+                        positive: data[key].votes.positive + 1,
+                    },
+                }
+                setData(data)
+                console.log('aftrTU', data[key].votes)
+                setItemLocalStorage('celebrities', data)
+            }
             setVoteNowState(2)
+            setVPercentage(
+                votingPercentage(
+                    data[key].votes.negative,
+                    data[key].votes.positive,
+                ),
+            )
         } else {
+            deactivateThumbs(thumbsState)
             setVoteNowState(0)
         }
     }
     return (
         <div className="box__container">
             <picture>
-                <source srcSet={boxImage(data.picture)} type="image/webp" />
+                <source
+                    srcSet={boxImage(information.picture)}
+                    type="image/webp"
+                />
                 <img
-                    alt={data.name}
+                    alt={information.name}
                     className="box__background-image"
                     loading="lazy"
-                    src={boxImage(data.picture)}
+                    src={boxImage(information.picture)}
                 />
             </picture>
             <div className="box__body">
                 <div className="box__body-header">
-                    {negative > positive ? (
+                    {vPercentage.negative > vPercentage.positive ? (
                         <ThumbsDown background />
                     ) : (
                         <ThumbsUp background />
                     )}
                     <section className="box__celebrity-name">
-                        {data.name}
+                        {information.name}
                     </section>
                 </div>
                 <section className="box__body-description">
-                    {data.description}
+                    {information.description}
                 </section>
                 <section className="box__last-updated">
                     {voteNowState !== 2
-                        ? `${convertDate(data.lastUpdated)} ago in ${
-                              data.category
+                        ? `${convertDate(information.lastUpdated)} ago in ${
+                              information.category
                           }`
                         : 'Thank you for voting!'}
                 </section>
@@ -97,6 +128,7 @@ export const Box = ({ data, key, setData }: ViewTypeI) => {
                     )}
                     <Button
                         disabled={voteNowState === 0}
+                        boxKey={boxKey}
                         onClickHandler={handleVoteNow}
                     >
                         {voteNowState !== 2 ? ' Vote Now' : 'Vote Again'}
@@ -105,15 +137,15 @@ export const Box = ({ data, key, setData }: ViewTypeI) => {
             </div>
             <footer className="box-percentage__container">
                 <div
-                    className={`box-percentage__bar bp__left-bar light-aquamarine-bg bar-width-${positive}`}
+                    className={`box-percentage__bar bp__left-bar light-aquamarine-bg bar-width-${vPercentage.positive}`}
                 >
                     <ThumbsUp />
-                    {`${positive}%`}
+                    {`${vPercentage.positive}%`}
                 </div>
                 <div
-                    className={`box-percentage__bar bp__right-bar light-yellow-bg bar-width-${negative}`}
+                    className={`box-percentage__bar bp__right-bar light-yellow-bg bar-width-${vPercentage.negative}`}
                 >
-                    {`${negative}%`}
+                    {`${vPercentage.negative}%`}
                     <ThumbsDown />
                 </div>
             </footer>
