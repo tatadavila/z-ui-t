@@ -2,6 +2,7 @@
 import { ButtonI } from './button.interface'
 
 export const Button: React.FC<ButtonI> = ({
+    boxKey,
     children,
     disabled = true,
     onClickHandler,
@@ -9,7 +10,7 @@ export const Button: React.FC<ButtonI> = ({
     return (
         <button
             className={`btn__container ${disabled ? 'btn__disabled' : ''}`}
-            onClick={onClickHandler()}
+            onClick={() => onClickHandler(boxKey)}
         >
             {children}
         </button>
