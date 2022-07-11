@@ -5,7 +5,7 @@ import { Button, ThumbsDown, ThumbsUp, ViewType } from '~/components'
 import { setItemLocalStorage } from '~/localStore'
 
 // @interfaces
-import { ViewTypeI, VotingPercentageI } from '~/interfaces'
+import { DataI, ViewTypeI, VotingPercentageI } from '~/interfaces'
 import { ThubsStatesI } from './boxStates.interface'
 
 // @utils
@@ -13,22 +13,27 @@ import { boxImage, convertDate, votingPercentage } from '~/utils'
 import { deactivateThumbs } from './utils'
 
 // @vendors
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 
-export const Box: FC<ViewTypeI> = ({ data, boxKey, information, setData }) => {
-    console.log({ information })
-
-    const negativeVotes = information.votes.negative
-    const positiveVotes = information.votes.positive
+export const Box: FC<ViewTypeI> = ({ boxKey, data, information, setData }) => {
+    const [boxData, setBoxData] = useState<DataI>(information)
     const [vPercentage, setVPercentage] = useState<VotingPercentageI>(
-        votingPercentage(negativeVotes, positiveVotes),
+        votingPercentage(boxData.votes.negative, boxData.votes.positive),
     )
     const [thumbsState, setThumbsState] = useState<ThubsStatesI>({
         thumbsDown: false,
         thumbsUp: false,
     })
     const [voteNowState, setVoteNowState] = useState<number>(0)
-
+    useEffect(() => {
+        const newData = [...data]
+        newData[boxKey] = boxData
+        setData(newData)
+        setVPercentage(
+            votingPercentage(boxData.votes.negative, boxData.votes.positive),
+        )
+        setItemLocalStorage('celebrities', newData)
+    }, [boxData])
     const handleThumbsButton = (property: keyof typeof thumbsState) => {
         deactivateThumbs(thumbsState)
         setThumbsState({
@@ -40,37 +45,27 @@ export const Box: FC<ViewTypeI> = ({ data, boxKey, information, setData }) => {
     const handleVoteNow = (key: number) => {
         if (voteNowState === 1) {
             if (thumbsState.thumbsDown) {
-                console.log('b4TD', data[key].votes)
-                data[key] = {
-                    ...data[key],
-                    votes: {
-                        negative: data[key].votes.negative + 1,
-                        positive: data[key].votes.positive,
-                    },
-                }
-                setData(data)
-                console.log('aftrTD', data[key].votes)
-                setItemLocalStorage('celebrities', data)
+                setBoxData(prevState => {
+                    return {
+                        ...prevState,
+                        votes: {
+                            negative: prevState.votes.negative + 1,
+                            positive: prevState.votes.positive,
+                        },
+                    }
+                })
             } else {
-                console.log('b4TU', data[key].votes)
-                data[key] = {
-                    ...data[key],
-                    votes: {
-                        negative: data[key].votes.negative,
-                        positive: data[key].votes.positive + 1,
-                    },
-                }
-                setData(data)
-                console.log('aftrTU', data[key].votes)
-                setItemLocalStorage('celebrities', data)
+                setBoxData(prevState => {
+                    return {
+                        ...prevState,
+                        votes: {
+                            negative: prevState.votes.negative,
+                            positive: prevState.votes.positive + 1,
+                        },
+                    }
+                })
             }
             setVoteNowState(2)
-            setVPercentage(
-                votingPercentage(
-                    data[key].votes.negative,
-                    data[key].votes.positive,
-                ),
-            )
         } else {
             deactivateThumbs(thumbsState)
             setVoteNowState(0)
